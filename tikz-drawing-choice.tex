@@ -1,0 +1,47 @@
+\documentclass[tikz,border=5pt]{standalone}
+\usepackage[fontset=fandol]{ctex}
+\usetikzlibrary{positioning,arrows.meta}
+\usepackage{xcolor}
+\usepackage{hologo}
+\makeatletter
+\def\HoLogo@TikZ#1{\HOLOGO@mbox{Ti\textit{k\/}Z}}
+\makeatother
+\usepackage[urlcolor=magenta,colorlinks]{hyperref}
+\begin{document}
+
+\begin{tikzpicture}[
+    >=Stealth,
+    treenode/.style={node distance=2cm and -1cm},
+    mynode/.style 2 args={
+        rectangle, draw, 
+        minimum width=#1, 
+        minimum height=#2,
+        align=center,
+        inner sep=0.5em,
+        rounded corners,
+    },
+    mynode/.default={4.5cm}{1.5cm},
+]
+\node[mynode={6cm}{2cm}] (root) {如何绘制目标图片\\并插入到\LaTeX{}文档中？};
+\node[mynode,below=of root] (L1) {是否适合用\LaTeX{}绘制？}edge[<-] (root); 
+\node[mynode,left=3cm of L1] {使用Adobe Illustrator/\\Inkscape等专业工具绘制} edge[<-] node[above]{构图花哨} node[below] {设计感过强} (L1);
+\node[mynode,below=of L1] (L2) {是否需要矢量图？} edge[<-] node[right] {简约、精准} (L1);
+\node[mynode,left=3cm of L2]  {直接以\texttt{.jpg}/\texttt{.png}等位图格式插入} edge[<-] node[above] {No} (L2);
+\node[mynode,below=of L2] (L3) {是否非 \hologo{TikZ} 不可？} edge[<-] node[right] {Yes} (L2);
+\node[mynode,left=3cm of L3] {使用Geogebra/EduEditor/几何\\画板等工具导出\texttt{.pdf}矢量图后插入} edge[<-] node[above] {No} (L3);
+\node[mynode,below=of L3] (L4) {是否时间紧急/\\不愿意投入时间} edge[<-] node[right] {Yes} (L3);
+\node[mynode,treenode,below left=of L4] (L5-1) {是否追求矢量图\\质量的极致完美？} edge[<-] node[pos=.4,above left] {Yes} (L4);
+\node[mynode={3cm}{1.25cm},node distance={2cm and 3cm},below left=of L5-1] {付费请 \hologo{TikZ} 高手绘制} edge[<-] node[above left] {Yes} (L5-1);
+\node[mynode,treenode,below right=of L4] (L5-2) {是否追求矢量图\\质量的极致完美？} edge[<-] node[pos=.4,above right] {No} (L4);
+\node[mynode={6cm}{1.25cm},node distance={2cm},below=of L5-1] (visible) {使用AI工具识别图片或\\使用 \href{https://tex.stackexchange.com/q/84890/322482}{\hologo{TikZ} 的可视化工具}绘制\\[3pt]\textbf{「快是快了，那么代价是什么呢？」}\\[8pt]\parbox{5cm}{\small(Notes:这种做法的缺陷也是\textbf{非常明显}的：代码可读性/可维护性差、没有经过设计、封装，难以复用，局部细节不一定足够完美，\textbf{只适合``一锤子买卖''}。最终可能花了很多时间画出来了相对完美的图，却不一定能学到多少 \hologo{TikZ} 知识)，下次还得问...}} 
+edge[<-] node[pos=.4,above right] {No} (L5-1)
+% edge[<-] node[above left] {No} (L5-2.south)
+;
+\draw[->] (L5-2.south) -- node[above left] {No} (visible.north);
+\node[mynode,below=4cm of L5-2] (L6) {代码是否需要多次复\\用、修改？保持一定\\的可读性和可维护性？} 
+edge[<-] node[above right] {Yes} (L5-2) 
+edge[->] node[above] {No} node[below,font=\small,align=center] {反复提问\\[-3pt]直至红温} (visible.east |- L6);
+\node[mynode={5cm}{2cm},below=2cm of L6] {\textbf{恭喜你！}\\你有很大的潜力成为一名\\优秀的 \hologo{TikZ} 绘图爱好者！\\快去读文档，找到每一幅图\\的「最佳实践」吧桀桀桀} edge[<-] node[left] {Yes} (L6);
+\end{tikzpicture}
+
+\end{document}
