@@ -1,5 +1,6 @@
 \documentclass[tikz,border=5pt]{standalone}
-\usepackage[fontset=fandol]{ctex}
+\usepackage[tt=false,osf]{libertine}
+\usepackage[fontset=lxgw]{ctex}
 \usetikzlibrary{positioning,arrows.meta}
 \usepackage{xcolor}
 \usepackage{hologo}
@@ -29,7 +30,7 @@
     ] (root) {如何绘制目标图片并插入到\LaTeX{}文档中？};
     \node[
         mynode,below=of root
-    ] (L1) {是否适合用\LaTeX{}绘制？}edge (root); 
+    ] (L1) {是否适合用\LaTeX{}绘制？} edge (root); 
     \node[
         mynode,left=3cm of L1
     ] {使用 \href{https://www.adobe.com/products/illustrator.html}{Adobe Illustrator}、\\\href{https://inkscape.org/zh-hans/}{Inkscape} 等专业工具绘制}
